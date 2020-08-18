@@ -5,13 +5,13 @@
 cd autopilot-validators
 twilio serverless:deploy
 
-3. Create a Bot from Scratch
+2. Create a Bot from Scratch
 
 https://www.twilio.com/console/autopilot/list 
 
 This example depends on the "greeting" and "goodbye" tasks being setup in your Autopilot bot.
 
-4. Modify your "greeting" task to redirect to a collect_phonenumber
+3. Modify your "greeting" task to redirect to a collect_phonenumber
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
@@ -32,9 +32,9 @@ https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
 ![Screenshot](/images/PhoneNumberValidation.png)
 
-5. Set up the environment variable in your functions environment for PHONE_INPUT to the country code where the phone numbers should be validated.
+4. Set up the environment variable in your functions environment for PHONE_INPUT to the country code where the phone numbers should be validated.
 
-6. Update the task "greeting" in your bot
+5. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
@@ -65,9 +65,9 @@ greeting
 
 ![Screenshot](/images/TimeValidation.png)
 
-5. Set up the environment variable in your functions environment for TIME_INPUT to the time mask you are expecting (HH:mm is what comes from Twilio.TIME)
+4. Set up the environment variable in your functions environment for TIME_INPUT to the time mask you are expecting (HH:mm is what comes from Twilio.TIME)
 
-6. Update the task "greeting" in your bot
+5. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
@@ -98,9 +98,9 @@ greeting
 
 ![Screenshot](/images/CurrencyValidation.png)
 
-5. Set up the environment variable in your functions environment for CURRENCY_INPUT to the currency you are using.
+4. Set up the environment variable in your functions environment for CURRENCY_INPUT to the currency you are using.
 
-6. Update the task "greeting" in your bot
+5. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
