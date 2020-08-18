@@ -11,30 +11,13 @@ https://www.twilio.com/console/autopilot/list
 
 This example depends on the "greeting" and "goodbye" tasks being setup in your Autopilot bot.
 
-3. Modify your "greeting" task to redirect to a collect_phonenumber
-
-https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
-
-```
-{
-	"actions": [
-		{
-		    "say": "Hello"
-		},
-		{
-		    "redirect": "task://collect_phonephone"
-		}
-	]
-}
-```
-
 ## To Validate Phone Numbers
 
 ![Screenshot](/images/PhoneNumberValidation.png)
 
-4. Set up the environment variable in your functions environment for PHONE_INPUT to the country code where the phone numbers should be validated.
+3. Set up the environment variable in your functions environment for PHONE_INPUT to the country code where the phone numbers should be validated.
 
-5. Update the task "greeting" in your bot
+4. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
@@ -65,9 +48,9 @@ greeting
 
 ![Screenshot](/images/TimeValidation.png)
 
-4. Set up the environment variable in your functions environment for TIME_INPUT to the time mask you are expecting (HH:mm is what comes from Twilio.TIME)
+3. Set up the environment variable in your functions environment for TIME_INPUT to the time mask you are expecting (HH:mm is what comes from Twilio.TIME)
 
-5. Update the task "greeting" in your bot
+4. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
@@ -98,9 +81,9 @@ greeting
 
 ![Screenshot](/images/CurrencyValidation.png)
 
-4. Set up the environment variable in your functions environment for CURRENCY_INPUT to the currency you are using.
+3. Set up the environment variable in your functions environment for CURRENCY_INPUT to the currency you are using.
 
-5. Update the task "greeting" in your bot
+4. Update the task "greeting" in your bot
 
 https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
 
