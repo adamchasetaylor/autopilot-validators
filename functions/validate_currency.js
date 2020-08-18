@@ -5,7 +5,7 @@ exports.handler = function(context, event, callback) {
   // get the Memory from Autopilot Redirect
   const memory = JSON.parse(event.Memory)
 
-  // get HH:mm time from Autopilot Memory
+  // get currency from Autopilot Memory
   const autopilot_currency = memory.twilio.collected_data.collect_currency.answers.currency.answer;
   let response = new Twilio.Response();
   let actions = [];
