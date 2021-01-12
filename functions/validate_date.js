@@ -1,35 +1,46 @@
 require("google-closure-library");
-goog.require("goog.i18n.NumberFormat");
+goog.require("goog.i18n.DateTimeFormat");
+
+const chrono = require("chrono-node");
 
 exports.handler = function (context, event, callback) {
   // get the Memory from Autopilot Redirect
   const memory = JSON.parse(event.Memory);
 
-  // get currency from Autopilot Memory
-  const autopilot_currency =
-    memory.twilio.collected_data.collect_currency.answers.currency.answer;
+  // get user input from
+  const autopilot_date =
+    memory.twilio.collected_data.collect_date.answers.date.answer;
+
   let response = new Twilio.Response();
   let actions = [];
 
-  currency_formatter = new goog.i18n.NumberFormat(
-    goog.i18n.NumberFormat.Format.CURRENCY,
-    context.CURRENCY_INPUT
+  // try GB format first, if fails then use default (default includes tommorow, today, etc)
+  const chrono_date =
+    chrono.en.GB.parseDate(autopilot_date) || chrono.parseDate(autopilot_date);
+
+  console.log(chrono_date);
+
+  // format as a friendly date format (you can change this to include time)
+  time_formatter = new goog.i18n.DateTimeFormat(
+    goog.i18n.DateTimeFormat.Format.MEDIUM_DATE
   );
-  number = currency_formatter.parse(autopilot_currency);
-  currency = currency_formatter.format(number);
+
+  date = time_formatter.format(chrono_date);
+
+  console.log(date);
 
   let remember = {
     remember: {
-      currency: currency,
+      date: chrono_date,
     },
   };
   let collect = {
     collect: {
-      name: "validate_currency",
+      name: "validate_date",
       questions: [
         {
-          name: "currency",
-          question: `Just to be certain, are you sure you want to pay me ${currency}?`,
+          name: "date",
+          question: `Just checking, do you mean ${date}?`,
           type: "Twilio.YES_NO",
           validate: {
             allowed_values: {
@@ -38,7 +49,7 @@ exports.handler = function (context, event, callback) {
             on_failure: {
               messages: [
                 {
-                  say: "I'm sorry, I must have misunderstood.",
+                  say: "I'm sorry, I must have missed that.",
                 },
               ],
               repeat_question: false,

@@ -5,14 +5,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "twilio-run",
-    "deploy": "twilio-run deploy"
+    "deploy": "twilio-run deploy",
+    "pretty": "prettier --write \"./**/*.{html,js,jsx,json}\""
   },
   "dependencies": {
+    "chrono-node": "^2.1.10",
     "google-closure-library": "^20200719.0.0",
     "google-libphonenumber": "^3.2.12"
   },
   "devDependencies": {
-    "twilio-run": "^2.6.0"
+    "prettier": "^2.2.1",
+    "twilio-run": "^2.8.0"
   },
   "engines": {
     "node": "10"

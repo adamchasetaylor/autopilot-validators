@@ -110,3 +110,33 @@ greeting
 }
 ```
 
+## To Validate Date
+
+![Screenshot](/images/DateValidation.png)
+
+3. Update the task "greeting" in your bot
+
+https://www.twilio.com/console/autopilot/{YOUR_BOT}/tasks
+
+greeting
+
+```
+{
+    "actions": [
+        {
+            "collect": {
+                "name": "collect_date",
+                "questions": [
+                    {
+                        "question": "When would you like to setup an appointment?",
+                        "name": "date"
+                    }
+                ],
+                "on_complete": {
+                    "redirect": "https://{YOUR_FUNCTION_URL}/validate_date"
+                }
+            }
+        }
+    ]
+}
+```
