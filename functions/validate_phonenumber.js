@@ -1,4 +1,4 @@
-const libphonenumber = require("google-libphonenumber");
+const libphonenumber = require('google-libphonenumber');
 const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
 exports.handler = function (context, event, callback) {
@@ -6,21 +6,13 @@ exports.handler = function (context, event, callback) {
   const memory = JSON.parse(event.Memory);
 
   // get Phone Number from Autopilot Memory
-  const autopilot_number =
-    memory.twilio.collected_data.collect_phonenumber.answers.phone_number
-      .answer;
+  const autopilot_number = memory.twilio.collected_data.collect_phonenumber.answers.phone_number.answer;
 
   let response = new Twilio.Response();
   let actions = [];
 
-  number = phoneUtil.parseAndKeepRawInput(
-    autopilot_number,
-    context.PHONE_INPUT
-  );
-  national_number = phoneUtil.format(
-    number,
-    libphonenumber.PhoneNumberFormat.NATIONAL
-  );
+  number = phoneUtil.parseAndKeepRawInput(autopilot_number, context.PHONE_INPUT);
+  national_number = phoneUtil.format(number, libphonenumber.PhoneNumberFormat.NATIONAL);
   e164_number = phoneUtil.format(number, libphonenumber.PhoneNumberFormat.E164);
 
   let remember = {
@@ -31,15 +23,15 @@ exports.handler = function (context, event, callback) {
   };
   let collect = {
     collect: {
-      name: "validate_phone",
+      name: 'validate_phone',
       questions: [
         {
-          name: "phone_number",
+          name: 'phone_number',
           question: `Is your phone number ${national_number}?`,
-          type: "Twilio.YES_NO",
+          type: 'Twilio.YES_NO',
           validate: {
             allowed_values: {
-              list: ["Yes"],
+              list: ['Yes'],
             },
             on_failure: {
               messages: [
@@ -50,7 +42,7 @@ exports.handler = function (context, event, callback) {
               repeat_question: false,
             },
             on_success: {
-              say: "Great.",
+              say: 'Great.',
             },
             max_attempts: {
               redirect: `task://${event.CurrentTask}`,
@@ -60,7 +52,7 @@ exports.handler = function (context, event, callback) {
         },
       ],
       on_complete: {
-        redirect: "task://goodbye",
+        redirect: 'task://goodbye',
       },
     },
   };
@@ -71,7 +63,7 @@ exports.handler = function (context, event, callback) {
     actions: actions,
   };
 
-  response.appendHeader("Content-Type", "application/json");
+  response.appendHeader('Content-Type', 'application/json');
   response.setBody(respObj);
 
   callback(null, response);

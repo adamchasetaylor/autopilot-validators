@@ -1,22 +1,19 @@
-require("google-closure-library");
-goog.require("goog.i18n.DateTimeParse");
-goog.require("goog.i18n.DateTimeFormat");
+require('google-closure-library');
+goog.require('goog.i18n.DateTimeParse');
+goog.require('goog.i18n.DateTimeFormat');
 
 exports.handler = function (context, event, callback) {
   // get the Memory from Autopilot Redirect
   const memory = JSON.parse(event.Memory);
 
   // get HH:mm time from Autopilot Memory
-  const autopilot_time =
-    memory.twilio.collected_data.collect_time.answers.time.answer;
+  const autopilot_time = memory.twilio.collected_data.collect_time.answers.time.answer;
 
   let response = new Twilio.Response();
   let actions = [];
 
   time_parser = new goog.i18n.DateTimeParse(context.TIME_INPUT);
-  time_formatter = new goog.i18n.DateTimeFormat(
-    goog.i18n.DateTimeFormat.Format.SHORT_TIME
-  );
+  time_formatter = new goog.i18n.DateTimeFormat(goog.i18n.DateTimeFormat.Format.SHORT_TIME);
 
   datetime = new Date();
   time_parser.parse(autopilot_time, datetime);
@@ -29,15 +26,15 @@ exports.handler = function (context, event, callback) {
   };
   let collect = {
     collect: {
-      name: "validate_time",
+      name: 'validate_time',
       questions: [
         {
-          name: "time",
+          name: 'time',
           question: `Just checking, do you mean ${time}?`,
-          type: "Twilio.YES_NO",
+          type: 'Twilio.YES_NO',
           validate: {
             allowed_values: {
-              list: ["Yes"],
+              list: ['Yes'],
             },
             on_failure: {
               messages: [
@@ -48,7 +45,7 @@ exports.handler = function (context, event, callback) {
               repeat_question: false,
             },
             on_success: {
-              say: "Great.",
+              say: 'Great.',
             },
             max_attempts: {
               redirect: `task://${event.CurrentTask}`,
@@ -58,7 +55,7 @@ exports.handler = function (context, event, callback) {
         },
       ],
       on_complete: {
-        redirect: "task://goodbye",
+        redirect: 'task://goodbye',
       },
     },
   };
@@ -69,7 +66,7 @@ exports.handler = function (context, event, callback) {
     actions: actions,
   };
 
-  response.appendHeader("Content-Type", "application/json");
+  response.appendHeader('Content-Type', 'application/json');
   response.setBody(respObj);
 
   callback(null, response);
